@@ -1,0 +1,386 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+
+<!--  php+Txt网页版通用快速搜索系统 20201105_222628  -->
+<title>查立得快查系统 - chalide.com</title>
+<meta name="author" content="yujianyue, admin@ewuyi.net">
+<meta name="copyright" content="www.12391.net">
+  <!--www.aiyaha.com-->
+<script type="text/javascript">
+function $(Obj){
+return document.getElementById(Obj);
+}
+function Trim(Str){
+return  Str.replace(/(^\s*)|(\s*$)/g,"");
+}
+function menuFix(){
+  var sfEls=$("menu").getElementsByTagName("li");
+  for (var index=0;index<sfEls.length;index++){
+  sfEls[index].onmouseover=function(){
+  this.className+=(this.className.length > 0 ? " " : "") + "sfhover";
+  }
+  sfEls[index].onmouseout=function(){
+  this.className=this.className.replace(new RegExp("( ?|^)sfhover\\b"),"");
+  }
+  }
+}
+function Pid(id,tag){
+ if(!tag){
+ return $(id);
+ } else{
+ return $(id).getElementsByTagName(tag);
+ }
+}
+function tab_zzjs(id,hx,box,iClass,s,pr){
+ var hxs=Pid(id,hx);
+ var boxs=Pid(id,box);
+ if(!iClass){ // 如果不指定class，则：
+ boxsClass=boxs; // 直接使用box作为容器
+ }else{
+ var boxsClass = [];
+ for(i=0;i<boxs.length;i++){
+ if(boxs[i].className.match(/\btab\b/)){// 判断容器的class匹配
+ boxsClass.push(boxs[i]);
+ }
+ }
+ }
+ if(!pr){ // 如果不指定预展开容器，则：
+ go_to(0); // 默认展开序列
+ yy();
+ } else {
+ go_to(pr);
+ yy();
+ }
+ function yy(){
+ for(var i=0;i<hxs.length;i++){
+ hxs[i].temp=i;
+ if(!s){// 如果不指定事件，则：
+ s="onclick"; // onmouseover
+ hxs[i][s]=function(){
+ go_to(this.temp);
+ }
+ } else{
+ hxs[i][s]=function(){
+ go_to(this.temp);
+ }
+ }
+ }
+ }
+ function go_to(pr){
+ for(var i=0;i<hxs.length;i++){
+ if(!hxs[i].tmpClass){
+ hxs[i].tmpClass=hxs[i].className+=" ";
+ boxsClass[i].tmpClass=boxsClass[i].className+=" ";
+ }
+ if(pr==i){
+ hxs[i].className+=" up"; // 展开状态：标题
+ boxsClass[i].className+=" up"; // 展开状态：容器
+ } else {
+ hxs[i].className=hxs[i].tmpClass;
+ boxsClass[i].className=boxsClass[i].tmpClass;
+ }
+ }
+ }
+}
+</script>
+<style type="text/css">
+/*自定义css*/
+
+*{margin:0;padding:0;line-height:150%;}
+body{font-family:"microsoft yahei",SimHei;background:#fff;font-size:14px;}
+body{background:#fff;}
+a{text-decoration:none;}
+a:link{color:blue;}
+a:visited{color:blue;}
+a:hover,a:active{color:blue;}
+b{color:red;font-weight:normal;}
+.r{text-align:right;}
+.l{text-align:left;}
+.c{text-align:center;}
+span{color:gray;}
+.gray{color:gray;}
+strong{color:red;}
+ .w{ padding:30px;background-image:url(logo.png);background-position:bottom right;background-repeat:no-repeat;}
+p{padding:5px;line-height:150%;}
+p a:hover{padding:3px;color:green;}
+h2{height:37px;line-height:36px;font-size:28px;padding:12px 0px;width:100%;color:blue;}
+h3{font-size:14px;line-height:180%;margin:1px 2px;color:red;}
+h4{font-size:14px;line-height:180%;font-weight:normal;margin:1px 2px;color:blue;}
+.mabida {position:relative; }
+.mabida .aiyaha { position: absolute; left: 0px; top: 20px; z-index:999;background-color:white; border:1px #006AA8 solid; display: none;}
+.mabida .aiyaha img { width:138px; margin:12px; }
+.mabida:hover .aiyaha { display: block;}
+strong,b{color:red;margin:2px;line-height:130%;}
+h5{font-size:14px;line-height:120%;font-weight:300;margin:1px 2px;color:blue;}
+#tab02{position:relative;margin:0px;border:0px solid #ccc;} 
+#tab02 h4 {line-height:150%;padding:5px 2px;font-size:16px;text-align:left;color:blue;} 
+#tab02 h4 {cursor:pointer;border:solid #ccc;border-width:1px 0 0 0;} 
+#tab02 h4.up {color:red;background:#f6f6f6;line-height:180%;padding:5px 2px;border-width:2px 0 0 0;font-weight:600;} 
+#tab02 ol {display:none;border:0px solid #ccc;} 
+#tab02 ol.up { display:block;padding:3px 0px; min-height:54px;} 
+caption{padding:5px;margin:8px auto;margin-left:18px;}
+table{border-top:2px solid #0180CF; margin:0 auto;font-size:12px;width:99%;}
+table td{min-width:66px;border-bottom:1px solid #a2c6d3;padding:5px 0px;word-wrap:break-word;word-break:break-all;}
+table tr:nth-child(even){background: #FCFCFC;}
+.tt{background:#e5f2fa;line-height:18px;FONT-SIZE:12px;font-weight:600;}
+.red{background:red;color:white;}
+#header,#main,#footer{margin:0px auto;width:99%;min-width:888px;max-width:1188px;display:block;}
+#header{background:#fff;height:38px;line-height:38px;border-bottom:2px solid #ccc;z-index:3;}
+#header .logo{font-style:italic;padding:0 0 0 8px;font-size:12px;font-weight:300;color:green;}
+#header .logo b{height:38px;line-height:38px;font-weight:900;font-size:20px;color:#0180CF;}
+#menu{float:right;height:36px;line-height:36px;margin:0 auto;padding:0 8px 0 0;}
+#menu ul{list-style:none;margin:0;padding:0;}
+#menu ul li{float:left;margin-left:2px;}
+#menu ul li a{display:block;border:1px solid white;padding:0 3px;min-width:88px;height:36px;line-height:36px;text-align:center;}
+#menu ul li a:hover{border:1px solid #ccc;background:#0180CF;color:white;}
+#menu ul li ul{background:white;z-index:5;display:none;top:37px;border:1px solid #ccc;position:absolute;}
+#menu ul li ul li{float:none;background:#eee;margin:0;}
+#menu ul li ul li a{background:white;border-bottom:1px solid #ccc;}
+#menu ul li ul li a:hover{background:#0180CF;color:white;border-bottom:1px solid #ccc;}
+#menu ul li:hover ul{display:block;}
+#onebyone{margin:0px auto;width:99%;min-width:888px;max-width:1188px;display:block;}
+  textarea{margin:0 auto;width:99.5%;height:300px;}
+.select select{width:100%;padding:5px;border:1px #CACACA solid;height:40px;-webkit-appearance:none;}
+.select option{height:40px;}
+.select{margin:0 auto;width:92%;height:40px;overflow:hidden;}
+.so_but{margin:15px auto;width:92%;text-align:center;margin-top:12px;border:0px;}
+.so_bus{margin:15px auto;width:92%;text-align:left;margin-top:12px;border:0px;}
+.so_but .buts{line-height:200%;padding:5px 25px;background:#0180CF url(line_bg.jpg) repeat-x;border-radius:25px;color:white;border:0px;}
+fieldset{margin:5px auto;border:0;border-top:1px solid #ccc;list-style-type:none;table-layout:fixed;white-space: normal;word-break:break-all; }
+.w{width:100%;padding:0; }
+legend{margin:0px 18px;padding:0px;text-align:center;font-size:20px;color:green;font-weight:600;text-overflow:ellipsis;white-space:nowrap;}
+fieldset {word-wrap:break-word;}
+.none {border:1px solid green;text-align:center;}
+#fooder{display:none;}
+#footer{text-align:center;margin-top:0px;padding-top:5px;border-top:1px solid #ccc;}
+</style>
+</head>
+<body>
+<div id="main">
+<!---header：开始-->
+ <div id="header">
+ <div class="nav">
+<div id="menu">
+ <ul>
+ <li><a href="#">查立得(荐)</a>
+ <ul>
+<a href="http://12391.net/chalide/" target="_blank" class="btn">在线演示</a>
+<a href="http://12391.net/chalide.zip" target="_blank" class="btn">下载源码</a>
+<a href="http://ada.12391.net/" target="_blank" class="btn">免费开通</a>
+ </ul>
+ </li> 
+
+ <li><a href="#">购买域名</a>
+ <ul>
+<a href="https://mi.aliyun.com/shop/39884?f=aiyaha.com" target="_blank" class="btn">阿里1店</a>
+<a href="https://mi.aliyun.com/shop/38281?f=aiyaha.com" target="_blank" class="btn">阿里2店</a>
+<a href="http://135634.shop.ename.com/?f=aiyaha.com" target="_blank" class="btn">易名</a>
+<a href="http://167932.shop.22.cn/?f=aiyaha.com" target="_blank" class="btn">爱名</a>
+ </ul>
+ </li> 
+
+ <li><a href="#">免费资源</a>
+ <ul>
+<li><a href="http://12391.net" target='_blank'>免费源码</a></li>
+<li><a href="https://mi.12391.net/ada.app" class="d">查立得快搜</a></li>
+<li><a href="https://mi.12391.net/add.app" class="d">万用查分版</a></li>
+<li><a href="https://mi.12391.net/ade.app" class="d">工资登录查</a></li>
+<li><a href="https://mi.12391.net/adc.app" class="d">直接搜索版</a></li>
+<!--li><a href="https://mi.12391.net/new.app" class="d">聊天式查询</a></li-->
+<li><a href="https://mi.12391.net/duo.app" class="d">更多48版本</a></li>
+ </ul>
+ </li> 
+
+ <li><a href="#">付费服务</a>
+ <ul>
+ <li><a href="https://item.taobao.com/item.htm?id=540197845648" target='_blank'>购买源码</a></li>
+ <li><a href="https://aiyaha.taobao.com/" target='_blank'>系统定制</a></li>
+ </ul>
+ </li> 
+
+ <li><a href="#">相关平台</a>
+ <ul>
+ <li><a href="http://www.12391.net" target='_blank'>万用查分</a></li>
+ <li><a href="http://www.chafenba.com" target='_blank'>查分吧</a></li>
+ <li><a href="http://www.yichaxin.com" target='_blank'>易查薪</a></li>
+ </ul>
+ </li> 
+
+ </ul>
+</div>
+<div class="logo"><b>查立得快查系统</b></div>
+</div>
+<script type="text/javascript">
+window.onload = menuFix;
+</script>
+</div><!---header：结束-->
+<div id='onebyone'>
+<!-- table!sta -->
+<div id="md">
+<fieldset class="w">
+<legend><b>查立得php快查系统</b>(txt版)</legend>
+<div id="tab02">
+
+<h4> 系统说明</h4>
+<ol>
+不到7KB的源码(去说明书后的压缩包)实现多条件选一通用查询系统。<br>
+它无需设计数据库，可以快速用于各种二维表查询。<br>
+
+<h3>用途举例(单条件精准查询)</h3>
+1. 各种成绩查询、工资查询、物业水电费查询。<br>
+2. 录取查询、分班查询、分宿舍查询、座位查询。<br>
+3. 防伪查询、证书查询、员工信息查询等等。<br>
+  
+<h3>用途举例(单条件模糊搜索)</h3>
+1. 小区人员、车辆快查，提高疫情通行效率。<br>
+2. 库存位置、员工信息、档案目录、图书位置及余量快查。<br>
+3. 产品参数快查、产品报价快查，售后网点快查。<br>
+4. 字典库比如技术员报错码查询。<br>
+5. 身份证、社保卡发放点查询身份证是否到本网点及位置快查。<br>
+6. 通讯录快查等更多个人资料库快查。<br>
+  </ol>
+
+<h4> 功能特性</h4>
+<ol>
+  
+php+txt 单数据多条件选一通用模糊搜索/精准查询系统。
+  
+<h3>1. 可精准可模糊</h3>
+可多条件任选一精准查询(等于)用于成绩查询、水电费物业费查询、录取、分班、分宿舍、考场分配查询等通用。<br>
+可多条件任选一模糊查询(包含)用于价格查询、图书位置查询、小区人员快查等各种二维数据表的内容检索。<br>
+也可以搜索设定字段中 输入关键词开头或结尾 的内容。也可以空格分开都多关键词查询。
+  
+<h3>2. 即时显示结果</h3>
+ajax即时查询，并在输入页面动态显示结果。
+  
+<h3>3. 支持手机端电脑端访问</h3>
+通过浏览器信息识别，大于666PX识别为手机，查询结果竖向，反之横向显示结果。  
+
+  
+</ol>
+  
+  
+<h4> 特色优势</h4>
+<ol>
+<h3>1. 灵活通用</h3>
+别看源码体积极小，它无需设计数据库，可以快速用于各种二维表查询。<br>
+
+<h3>2. 小巧易拓展</h3>
+整个源码（含演示数据）只有30-50KB，不仅运行起来自然流畅。<br>
+易于程序员快速掌握；大大提升开发速度并降低二次开发成本。
+  
+<h3>3. 更为安全</h3>
+源码只有俩页面，几乎只读不写，更没有sql注入等风险。<br>
+当前大多软件都是几十MB，文件越大越复杂，安全越难以掌握。
+  
+<h3>4. 简单易用</h3>
+无需安装（初始化），也无需修改参数，放根目录或任意目录直接使用。<br>
+FTP基本可以实现后台功能，上传到空间即可使用。<br>
+FTP批量上传大数据可能更低消耗服务器资源，也不受限于虚拟空间上传大小和超时时间等。<br>
+FTP上传可多文件一拖全上，并支持断点续传等，对服务器影响小。<br>
+在线删除不了的文件，FTP往往可以删除。
+  
+<h3>5. 低耗内存</h3>
+无需Mysql等(大部分为非常规数据库)，低内存服务器也流畅运行(Mysql可能多耗20%+服务器内存)。
+  
+<h3>6. 低耗网络</h3>
+现在大多页面单js文件就几百KB，加上图片就更大了。<br>
+一个网页往往超过1MB。本查询页一个页面只有30KB左右。<br>
+相当于在同等带宽资源下，网络并发量可以提升几十倍。<br>
+节省很多网络费用的同时，大幅度提升查询的并发量。
+  
+<h3>7. 低耗读写</h3>
+本查询几乎只读不写；小巧的网页也将在JS和图片的读取方面节约大量资源。
+
+
+</ol>
+
+
+<h4> 联系作者</h4>
+<ol>
+
+<h3>功能异常反馈</h3>
+电话反馈：15058593138（同微信号）<br>
+沟通请提供版本信息： VIPchasou 及 现象截图。<br>
+语音沟通高效快捷，可以为双方节省很多时间。<br>
+
+<h3>付费技术支持</h3>
+如需付费技术支持请移步：https://aiyaha.taobao.com<br>
+或加微信 15058593138 可能一个指点为你节省几个小时调试时间。<br>
+
+<h5>VIP功能 结果分页</h5>
+查询结果分页显示(可设置每页数量)，适合查询结果多导致速度卡慢等问题。
+
+<h5>VIP功能 支持隐藏列、网址显图或外链接</h5>
+可以隐藏指定列；将图片网址显示为图片，链接显示为可点外链。
+
+<h3>VIP功能 长内容可折叠与恢复</h3>
+如果某字段大于设定都字段长度，点击对应单元格可以展开或收缩内容，利于页面排版与用户阅读。
+</ol>
+  
+<h4> 快速入门</h4>
+<ol>
+<h3>先尝试可用性</h3>
+建议先不修改任何内容直接FTP上传到对应空间测试。<br>
+查询页面访问：http://网址/目录/<br>
+<h3>1.参数修改。</h3>
+无需编程基础，只需修改conn.php的一些参数即可定义查询系统标题等信息.<br>
+<h3>2.数据转化。</h3>
+数据转化：参考原有数据规律(建议保留原始数据做参考)，有且只有首行是列标题(字段)，第二行代码，以后一行一条数据;<br>
+转化要点；excel复制二维数据表(无合并单元格)到txt，有回车或制表符先替换。第二行插入防止下载代码，数据编码UTF-8。<br>
+数据转回；可以右键记事本打开看到的文本数据复制到Excel查看，保存即得xls文件。
+<h3>3.网站迁移。</h3>
+无需数据库迁移及数据库信息修改，整体复制到新空间即可通过新空间绑定的域名访问.<br>
+
+</ol>
+
+
+<h4> 使用须知</h4>
+<ol>
+<h3>1.你上传的数据应该征得相关部门、单位同意。</h3>
+为了规避风险，建议让同事、领导小范围查询体验，同意后再公布查询。<br>
+  
+<h3>2.输入指定内容即可展现结果，请合理设置查询条件。</h3>
+比如表格有学号+姓名列，那么别只用姓名查，因为同名的都会都显示。<br>
+  
+<h3>3.只上传相关内容，别上传无关的个人隐私信息。</h3>
+比如通过学号+姓名查询成绩，就别上传身份证号、电话等无关信息。<br>
+  
+<h3>4.上传内容请不要带有立场观点。</h3>
+比如请勿用于黑名单查询等带有立场的查询用途。<br>
+  
+<h3>5.请合法合规使用。</h3>
+请勿将本系统用于政策允许范围以外的查询用途。<br>
+不要冒名使用（底部简称请留本单位信息）。<br>
+  
+<h3>6.做好数据的防下载处理。</h3>
+你可以修改conn.Php数据库文件夹名称为你自己知道的内容同时修改对应文件夹名称。<br>
+或者伪静态等方式设置该数据库文件后缀或文件夹不可下载。<br>
+  
+</ol>
+  
+</div><script type="text/javascript"> 
+<!-- 
+tab_zzjs("tab02","h4","ol");
+//--> 
+</script> 
+</fieldset></div>
+<!-- table!old -->
+</div>
+
+<!--myfoot：开始-->
+<div id='footer'>
+Copyright&#169;2019 查立得（chalide.com）版权所有
+</div>
+<!-- 问题反馈 15058593138(同微信号) 说明来自chalide.com --><!--myfoot：结束-->
+
+<!--  技术支持请提供 chalide_free_20201105_222628_7e9b50b6e3a3fb09a2339d28605e4776.zip  -->
+</body>
+
+<!--
+  问题反馈：15058593138(同微信号)  
+-->
+</html>
